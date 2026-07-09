@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Shared Renovate preset for B3dmar Astro sites. Groups the whole Astro toolchain into one PR so partial bumps never break a build, and holds majors for a deliberate manual upgrade.",
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Copenhagen",
+  "schedule": ["before 9am on monday"],
+  "labels": ["dependencies"],
+  "prConcurrentLimit": 5,
+  "packageRules": [
+    {
+      "description": "Bump astro + @astrojs/* together (with astro-og-canvas and self-hosted fontsource fonts) in a single grouped PR.",
+      "groupName": "astro ecosystem",
+      "matchPackageNames": [
+        "astro",
+        "@astrojs/**",
+        "astro-og-canvas",
+        "@fontsource/**",
+        "@fontsource-variable/**"
+      ]
+    },
+    {
+      "description": "Hold Astro and adapter MAJOR upgrades for a deliberate manual bump (they are coupled and can break builds).",
+      "matchPackageNames": ["astro", "@astrojs/**"],
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 9am on monday"]
+  }
+}
